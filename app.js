@@ -24,7 +24,6 @@ db.once('open', function() {
 
 // Security
 //jwtSecurity
-var jwtOptions = require('./security/jwtSecurity').jwtOptions;
 var jwtStrategy = require('./security/jwtSecurity').strategy;
 // security (secret token)
 const securityCheck = require('./security/secret').securityCheck;
@@ -40,8 +39,7 @@ const upload = require('./helpers/fileuploader').upload;
 
 app.use(securityCheck);//secret ==> header "secret", "iv" und "timestamp" sind notwendig
 app.use(express.static( 'uploads'));
-
-
+//Cors
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -72,6 +70,6 @@ app.post('/signup',signupController);
 
 app.post('/file', upload.single('file'), fileUploadController);
 
-app.listen(3000, function() {
-  console.log('Example app listening on port 3000!');
+app.listen(process.env.PORT, function() {
+  console.log('Example app listening on port process.env.PORT!');
 });

@@ -2,13 +2,16 @@ var multer = require('multer');
 
 
   exports.fileUploadController = (req, res, next) => {
-    console.log(req.file);
-      const file = req.file
-      console.log(file);
-      if (!file) {
-        const error = new Error('Please upload a file')
-        error.httpStatusCode = 400
-        return next(error);
-      }
-     res.send(file)
-    }  
+    res.send(req.file)
+
+    /** The original name of the uploaded file
+        stored in the variable "originalname". **/
+    var target_path = 'uploads/' + req.file.originalname;
+  
+    /** A better way to copy the uploaded file. **/
+    var src = fs.createReadStream(tmp_path);
+    var dest = fs.createWriteStream(target_path);
+    src.pipe(dest);
+    src.on('end', function() { res.render('complete'); });
+    src.on('error', function(err) { res.render('error'); });
+}  
