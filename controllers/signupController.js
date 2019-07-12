@@ -9,7 +9,7 @@ mongoose.connect("mongodb://localhost:27017/my_db", { useNewUrlParser: true});
 exports.signupController = function(req, res){
     //empfänger muss posted haben
      //was wurde geposted
-     res.send(req.body)
+     
     if (!req.body.email ||
         !req.body.username ||
         !req.body.password ||
