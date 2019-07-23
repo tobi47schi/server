@@ -2,8 +2,8 @@ var multer = require('multer');
 
 
   exports.fileUploadController = (req, res, next) => {
-    res.send(req.file)
-
+    var tmp_path = req.file;
+    res.send(tmp_path)
     /** The original name of the uploaded file
         stored in the variable "originalname". **/
     var target_path = 'uploads/' + req.file.originalname;

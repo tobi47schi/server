@@ -37,14 +37,10 @@ var fileUploadController = require('./controllers/fileUploadController').fileUpl
 //Helpers
 const upload = require('./helpers/fileuploader').upload;
 
-app.use(securityCheck);//secret ==> header "secret", "iv" und "timestamp" sind notwendig
+//app.use(securityCheck);//secret ==> header "secret", "iv" und "timestamp" sind notwendig
 app.use(express.static( 'uploads'));
 //Cors
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-}); 
+app.use(cors({origin:true,credentials: true}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

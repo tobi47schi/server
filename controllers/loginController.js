@@ -27,8 +27,10 @@ exports.loginController = function(req,res){
                 var payload = { id:user.id  };
                 var token = jwt.sign(payload, jwtOptions.secretOrKey, {expiresIn : '1d'}); // token wird hier zugewiesen // Zeit, die ein Token wirksam ist (hier 1 Tag)
                 res.setHeader("jwt-token" , token);
-                
-                res.json(user.username );
+                res.json({
+                    "username" : user.username,
+                    "jwt" : token
+                });
             }
             else {
                 console.log('User konnte nicht eingeloggt werden!');

@@ -9,16 +9,14 @@ mongoose.connect("mongodb://localhost:27017/my_db", { useNewUrlParser: true});
 exports.signupController = function(req, res){
     //empfänger muss posted haben
      //was wurde geposted
-     res.send(req.body)
+     
     if (!req.body.email ||
         !req.body.username ||
         !req.body.password ||
         !req.body.passwordConf ){
-          res.status(403).send("Data not complete");
+          res.status(400).send("Data not complete");
     } else {
         // Wenn Form komplett Befüllt
-        console.log("SignUp_alle Infos da!", Date.now());
-        // hash Password
 
         //MongoDB - Schema befüllen
         console.log("USER_SCHEMA erstellt", Date.now());
@@ -29,11 +27,13 @@ exports.signupController = function(req, res){
             password: req.body.password,
         //passwordConf: req.body.passwordConf
         });
+
+        
             // In MongoDB speichern
         newUser.save(function (err, user) {
             if (err) {
                 //Falls User nicht in DB gespeichert werden konnte
-                res.send(err);
+                res.status(400).send(JSON.stringify(err));
             } else {
                 console.log(user.username + " saved to Users collection.", Date.now());
 
