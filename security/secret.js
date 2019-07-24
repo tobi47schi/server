@@ -20,7 +20,9 @@ fs.writeFile(path, JSON.stringify(secret), (err) => {
 
 exports.securityCheck = (req, res, next) => {
   //console.log("Security Check called")
-  console.log(req.headers)
+  if(!req.headers.secret || !req.headers.iv || !req.headers.timestamp) {
+    res.status(403).send("Secret, iv and timestamp needed");
+  }
   if (!secretKey.check(passphrase, req.headers.secret, req.headers.iv, req.headers.timestamp)) {
     // Unauthorized
     return res.sendStatus(401);
