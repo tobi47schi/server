@@ -29,7 +29,7 @@ exports.securityCheck = (req, res, next) => {
   } else {
     next();
   }
-} catch {
+} catch (err) {
   res.send(err);
 }
   
