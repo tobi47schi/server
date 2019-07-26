@@ -14,9 +14,9 @@ fs.writeFile(path, JSON.stringify(secret), (err) => {
   if(err) {
       return console.log(err);
   }
-  console.log("Credentials created in " + path);
+  console.log("secret:" , secret);
 });
-
+console.log("secret:" , JSON.stringify(secret));
 
 exports.securityCheck = (req, res, next) => {
   //console.log("Security Check called")
