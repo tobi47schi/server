@@ -3,7 +3,7 @@ const secretKey = require('secret-key');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const passphrase = process.env.SECRET_PASSPHRASE; //selbst zu setzen!!
+const passphrase = 'asdf'; //selbst zu setzen!!
 
 var secret = secretKey.create(passphrase)
 
