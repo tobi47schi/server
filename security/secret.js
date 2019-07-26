@@ -1,5 +1,4 @@
 
-const fs = require('fs');
 const secretKey = require('secret-key');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -7,17 +6,10 @@ dotenv.config();
 const passphrase = process.env.SECRET_PASSPHRASE; //selbst zu setzen!!
 
 var secret = secretKey.create(passphrase)
-const path = process.env.SECRECT_PATH
 
 //write secret to file
-fs.writeFile(path, JSON.stringify(secret), (err) => {
-  if(err) {
-      return console.log(err);
-  }
-  console.log("secret:" , secret);
-});
-console.log("secret:" , JSON.stringify(secret));
 
+console.log("secret:" , secret);
 exports.securityCheck = (req, res, next) => {
   //console.log("Security Check called")
 
