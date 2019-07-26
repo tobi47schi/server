@@ -20,6 +20,7 @@ console.log("secret:" , JSON.stringify(secret));
 
 exports.securityCheck = (req, res, next) => {
   //console.log("Security Check called")
+  try{
   if(!req.headers.secret || !req.headers.iv || !req.headers.timestamp) {
     res.status(403).send("Secret, iv and timestamp needed");
   } else if (!secretKey.check(passphrase, req.headers.secret, req.headers.iv, req.headers.timestamp)) {
@@ -28,6 +29,9 @@ exports.securityCheck = (req, res, next) => {
   } else {
     next();
   }
+} catch {
+  res.send(err);
+}
   
 
 }
