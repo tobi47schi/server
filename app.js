@@ -49,7 +49,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.get('/', function(req, res) {
   console.log('called root');
   res.status(200).send('app is on');
-  console.error(constants);
 });
 
 app.get('/loggedin',passport.authenticate('jwt', { session: false }), (req, res)=>
