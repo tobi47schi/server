@@ -58,7 +58,7 @@ app.get('/loggedin',passport.authenticate('jwt', { session: false }), (req, res)
 
 
 //aus mongodb
-app.post('/login', loginController);
+app.post('/login', securityCheck, loginController);
 
 //aus mongodb
 app.post('/signup',signupController);
