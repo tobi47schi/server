@@ -29,8 +29,7 @@ exports.loginController = function(req,res){
                     "username" : user.username,
                     "jwt" : token
                 });
-            }
-            else {
+            }else {
                 res.status(403).send('Wrong password'); //403 status Forebidden
             }
         }
