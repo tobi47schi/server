@@ -21,9 +21,7 @@ exports.loginController = function(req,res){
   
             //Passortauth pruefen!! --> encrypt
             console.log("Von DB:",user.password, user.email);
-            var pwCheck = bcrypt.compareSync(req.body.password, user.password) ;
-            console.log("PW-CHECK", pwCheck);
-            if (pwCheck) {
+            if ( bcrypt.compareSync(req.body.password, user.password) ) {
                 var payload = { id:user.id  };
                 var token = jwt.sign(payload, jwtOptions.secretOrKey, {expiresIn : '1d'}); // token wird hier zugewiesen // Zeit, die ein Token wirksam ist (hier 1 Tag)
                 res.setHeader("jwt-token" , token);
@@ -33,9 +31,7 @@ exports.loginController = function(req,res){
                 });
             }
             else {
-                console.log('User konnte nicht eingeloggt werden!');
-                res.sendStatus(403); //403 status Forebidden
-  
+                res.status(403).send('Wrong password'); //403 status Forebidden
             }
         }
     })
