@@ -37,7 +37,7 @@ var fileUploadController = require('./controllers/fileUploadController').fileUpl
 //Helpers
 const upload = require('./helpers/fileuploader').upload;
 
-//app.use(securityCheck);//secret ==> header "secret", "iv" und "timestamp" sind notwendig
+app.use(securityCheck);//secret ==> header "secret", "iv" und "timestamp" sind notwendig
 app.use(express.static( 'uploads'));
 //Cors
 app.use(cors({origin:true,credentials: true}));
@@ -49,7 +49,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.get('/', function(req, res) {
   console.log('called root');
   res.status(200).send('app is on');
-  console.error(constants);
 });
 
 app.get('/loggedin',passport.authenticate('jwt', { session: false }), (req, res)=>
@@ -59,7 +58,7 @@ app.get('/loggedin',passport.authenticate('jwt', { session: false }), (req, res)
 
 
 //aus mongodb
-app.post('/login', loginController);
+app.post('/login', securityCheck, loginController);
 
 //aus mongodb
 app.post('/signup',signupController);
